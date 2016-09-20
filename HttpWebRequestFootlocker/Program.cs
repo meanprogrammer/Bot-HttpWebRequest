@@ -15,7 +15,8 @@ namespace HttpWebRequestFootlocker
         static void Main(string[] args)
         {
             string url = "http://www.footlocker.com/product/model:190074/sku:55088011/jordan-retro-1-high-og-mens/black/white/?cm=";
-            string size = "9";
+            //string url = "http://www.footlocker.com/product/model:201111/sku:54861001/nike-sb-stefan-janoski-boys-grade-school/black/white/?cm=";
+            string size = "7.0";
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Credentials = CredentialCache.DefaultCredentials;
@@ -33,7 +34,8 @@ namespace HttpWebRequestFootlocker
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
-
+                var setcookie = response.Headers.Get("Set-Cookie");
+                var cookies = request.Headers.AllKeys;
                 // Display the status.
                 Console.WriteLine(((HttpWebResponse)response).StatusDescription);
                 // Get the stream containing content returned by the server.
@@ -58,20 +60,20 @@ namespace HttpWebRequestFootlocker
                         HtmlNode requestKey = doc.GetElementbyId("requestKey");
                         var realRequestKeyValue = requestKey.GetAttributeValue("value", string.Empty);
 
-                        string postUrl = "http://www.footlocker.com/catalog/miniAddToCart.cfm?secure=0&";
+                        string postUrl = "http://www.footlocker.com/catalog/miniAddToCart.cfm?secure=0";
 
-                        HttpWebRequest postRequest = (HttpWebRequest)WebRequest.Create(postUrl);
-                        postRequest.Method = "POST";
-                        postRequest.Credentials = CredentialCache.DefaultCredentials;
-                        postRequest.ContentType = "application/x-www-form-urlencoded";
+                        request = (HttpWebRequest)WebRequest.Create(postUrl);
+                        request.Method = "POST";
+                        request.Credentials = CredentialCache.DefaultCredentials;
+                        request.ContentType = "application/x-www-form-urlencoded";
 
                         Dictionary<string, string> payload = CreatePayload(realRequestKeyValue, realSkuValue, realModelValue);
 
-                        postRequest.Accept = "*/*";
-                        postRequest.Headers.Add("Origin", "http://www.footlocker.com");
-                        postRequest.Headers.Add("X-Requested-With", "XMLHttpRequest");
-                        postRequest.Referer = url;
-                        postRequest.Headers.Add("Accept-Encoding", "gzip, deflate");
+                        request.Accept = "*/*";
+                        request.Headers.Add("Origin", "http://www.footlocker.com");
+                        request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+                        request.Referer = url;
+                        request.Headers.Add("Accept-Encoding", "gzip, deflate");
 
                         string postData = "";
 
@@ -81,14 +83,16 @@ namespace HttpWebRequestFootlocker
                                   + HttpUtility.UrlEncode(payload[key]) + "&";
                         }
 
+                        //HttpUtility.UrlEncode(key)
+                        postData += "inlineAddToCart=1";
                         byte[] data = Encoding.ASCII.GetBytes(postData);
 
 
-                        Stream requestStream2 = postRequest.GetRequestStream();
+                        Stream requestStream2 = request.GetRequestStream();
                         requestStream2.Write(data, 0, data.Length);
                         requestStream2.Close();
 
-                        HttpWebResponse myHttpWebResponse = (HttpWebResponse)postRequest.GetResponse();
+                        HttpWebResponse myHttpWebResponse = (HttpWebResponse)request.GetResponse();
 
                         Stream responseStream = myHttpWebResponse.GetResponseStream();
 
@@ -111,20 +115,26 @@ namespace HttpWebRequestFootlocker
         static Dictionary<string, string> CreatePayload(string realRequestKeyValue, string realSkuValue, string realModelValue)
         {
             Dictionary<string, string> payload = new Dictionary<string, string>();
-            payload.Add("BV_TrackingTag_QA_Display_Sort", string.Empty);
-            payload.Add("BV_TrackingTag_Review_Display_Sort", string.Format("http://footlocker.ugc.bazaarvoice.com/8001/{0}/reviews.djs?format=embeddedhtml", realSkuValue));
-            payload.Add("coreMetricsCategory", "blank");
-            payload.Add("fulfillmentType", "SHIP_TO_HOME");
-            payload.Add("hasXYPromo", "false");
-            payload.Add("inlineAddToCart", "0,1");
-            payload.Add("qty", "1");
-            payload.Add("rdo_deliveryMethod", "shiptohome");
             payload.Add("requestKey", realRequestKeyValue);
+            payload.Add("qty", "1");
             payload.Add("size", "10.0");
-            payload.Add("sku", realSkuValue);
-            payload.Add("storeCostOfGoods", "0.00");
-            payload.Add("storeNumber", "00000");
             payload.Add("the_model_nbr", realModelValue);
+            payload.Add("sku", realSkuValue);
+            payload.Add("storeNumber", "00000");
+            payload.Add("fulfillmentType", "SHIP_FROM_STORE");
+            payload.Add("storeCostOfGoods", "0.00");
+            payload.Add("inlineAddToCart", "0");
+            payload.Add("coreMetricsCategory", "blank");
+            payload.Add("hasXYPromo", "false");
+            payload.Add("BV_TrackingTag_Review_Display_Sort", string.Format("http://footlocker.ugc.bazaarvoice.com/8001/{0}/reviews.djs?format=embeddedhtml", realSkuValue));
+            payload.Add("BV_TrackingTag_QA_Display_Sort", string.Empty);
+            payload.Add("rdo_deliveryMethod", "shiptohome");
+            //payload.Add("inlineAddToCart", "1");
+            
+            
+            
+            
+            
 
             return payload;
         }
