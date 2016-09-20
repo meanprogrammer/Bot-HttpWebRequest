@@ -14,6 +14,7 @@ namespace HttpWebRequestFootlocker
     {
         static void Main(string[] args)
         {
+
             string url = "http://www.footlocker.com/product/model:190074/sku:55088011/jordan-retro-1-high-og-mens/black/white/?cm=";
             //string url = "http://www.footlocker.com/product/model:201111/sku:54861001/nike-sb-stefan-janoski-boys-grade-school/black/white/?cm=";
             string size = "7.0";
@@ -65,7 +66,10 @@ namespace HttpWebRequestFootlocker
                         request = (HttpWebRequest)WebRequest.Create(postUrl);
                         request.Method = "POST";
                         request.Credentials = CredentialCache.DefaultCredentials;
-                        request.ContentType = "application/x-www-form-urlencoded";
+                        //request.ContentType = "application/x-www-form-urlencoded";
+                        //request.Headers.Add("Cookie", setcookie);
+
+                        //string setcookie.Split(new char[]{ ';' });
 
                         Dictionary<string, string> payload = CreatePayload(realRequestKeyValue, realSkuValue, realModelValue);
 
@@ -74,6 +78,12 @@ namespace HttpWebRequestFootlocker
                         request.Headers.Add("X-Requested-With", "XMLHttpRequest");
                         request.Referer = url;
                         request.Headers.Add("Accept-Encoding", "gzip, deflate");
+                        //request.Headers.Add("Proxy-Connection","keep-alive");
+                        request.KeepAlive = true;
+
+
+                        request.CookieContainer = new CookieContainer();
+                        request.CookieContainer.Add(new Uri("http://www.footlocker.com"), CovertToCookies(setcookie));
 
                         string postData = "";
 
@@ -111,6 +121,22 @@ namespace HttpWebRequestFootlocker
             Console.Read();
         }
 
+        static CookieCollection CovertToCookies(string text)
+        {
+            CookieCollection list = new CookieCollection();
+
+            var cookieLongString = text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string item in cookieLongString)
+            {
+                string[] keyValue = item.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+                if (keyValue.Length == 2) {
+                    Cookie c = new Cookie(keyValue.First().Trim(), HttpUtility.UrlEncode(keyValue.Last().Trim()));
+                    list.Add(c);
+                }
+            }
+            return list;
+        }
 
         static Dictionary<string, string> CreatePayload(string realRequestKeyValue, string realSkuValue, string realModelValue)
         {
