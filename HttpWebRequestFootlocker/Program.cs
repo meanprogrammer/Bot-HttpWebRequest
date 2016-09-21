@@ -42,7 +42,7 @@ namespace HttpWebRequestFootlocker
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Credentials = CredentialCache.DefaultCredentials;
-
+            request.Method = "GET";
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
@@ -89,18 +89,22 @@ namespace HttpWebRequestFootlocker
                         request = (HttpWebRequest)WebRequest.Create(postUrl);
                         request.Method = "POST";
                         request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                        request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
                         //request.ContentType = "application/x-www-form-urlencoded";
                         //request.Headers.Add("Cookie", setcookie);
 
                         //string setcookie.Split(new char[]{ ';' });
 
                         Dictionary<string, string> payload = CreatePayload(realRequestKeyValue, realSkuValue, realModelValue);
-
+                        request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36";
                         request.Accept = "*/*";
                         request.Headers.Add("Origin", "http://www.footlocker.com");
                         request.Headers.Add("X-Requested-With", "XMLHttpRequest");
                         request.Referer = url;
                         request.Headers.Add("Accept-Encoding", "gzip, deflate");
+                        request.Headers.Add("Accept-Language", "en-US,en;q=0.8");
+                        request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+                        request.Host = "www.footlocker.com";
                         request.KeepAlive = true;
 
 
