@@ -14,6 +14,27 @@ namespace HttpWebRequestFootlocker
     {
         static void Main(string[] args)
         {
+            string base_url = "http://www.footlocker.com";
+            HttpWebRequest initialRequest = (HttpWebRequest)WebRequest.Create(base_url);
+
+            initialRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            initialRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
+            initialRequest.Headers.Add("DNT", "1");
+            initialRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            initialRequest.Headers.Add("Accept-Encoding", "gzip, deflate, sdch");
+            initialRequest.Headers.Add("Accept-Language", "en-US,en;q=0.8,da;q=0.6");
+            initialRequest.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+
+            initialRequest.Method = "GET";
+            initialRequest.Credentials = CredentialCache.DefaultCredentials;
+            initialRequest.CookieContainer = new CookieContainer();
+            System.Net.HttpWebResponse initialResponse = (HttpWebResponse)initialRequest.GetResponse();
+
+            var initialCookies = initialResponse.Cookies;
+
+            initialResponse.Dispose();
+
 
             string url = "http://www.footlocker.com/product/model:190074/sku:55088011/jordan-retro-1-high-og-mens/black/white/?cm=";
             //string url = "http://www.footlocker.com/product/model:201111/sku:54861001/nike-sb-stefan-janoski-boys-grade-school/black/white/?cm=";
@@ -63,9 +84,11 @@ namespace HttpWebRequestFootlocker
 
                         string postUrl = "http://www.footlocker.com/catalog/miniAddToCart.cfm?secure=0";
 
+                        request.Headers.Clear();
+
                         request = (HttpWebRequest)WebRequest.Create(postUrl);
                         request.Method = "POST";
-                        request.Credentials = CredentialCache.DefaultCredentials;
+                        request.Credentials = CredentialCache.DefaultNetworkCredentials;
                         //request.ContentType = "application/x-www-form-urlencoded";
                         //request.Headers.Add("Cookie", setcookie);
 
@@ -78,12 +101,11 @@ namespace HttpWebRequestFootlocker
                         request.Headers.Add("X-Requested-With", "XMLHttpRequest");
                         request.Referer = url;
                         request.Headers.Add("Accept-Encoding", "gzip, deflate");
-                        //request.Headers.Add("Proxy-Connection","keep-alive");
                         request.KeepAlive = true;
 
 
                         request.CookieContainer = new CookieContainer();
-                        request.CookieContainer.Add(new Uri("http://www.footlocker.com"), CovertToCookies(setcookie));
+                        request.CookieContainer.Add(new Uri("http://www.footlocker.com"), initialCookies);
 
                         string postData = "";
 
@@ -93,7 +115,6 @@ namespace HttpWebRequestFootlocker
                                   + HttpUtility.UrlEncode(payload[key]) + "&";
                         }
 
-                        //HttpUtility.UrlEncode(key)
                         postData += "inlineAddToCart=1";
                         byte[] data = Encoding.ASCII.GetBytes(postData);
 
@@ -111,7 +132,7 @@ namespace HttpWebRequestFootlocker
                         string pageContent = myStreamReader.ReadToEnd();
 
                         myStreamReader.Close();
-                        responseStream.Close();
+                       // responseStream.Close();
 
                         myHttpWebResponse.Close();
 
