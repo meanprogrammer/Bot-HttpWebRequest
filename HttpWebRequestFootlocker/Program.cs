@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,10 +16,17 @@ namespace HttpWebRequestFootlocker
         static void Main(string[] args)
         {
             string base_url = "http://www.footlocker.com";
+
             HttpWebRequest initialRequest = (HttpWebRequest)WebRequest.Create(base_url);
+
+            string rawCookies = "TID=5555%2D29121607402129070918580%2D0; TRACK_USER_P=29031291216074029070967883; USER_PROFILE=enw6maPKkWi63kKVcW5m4tPeCZotA3X22AN6W962AW4oQrIC6Vy187h3hXGez9upTenaqyHuQzCHCWYFlV0aJoSdXXK%2BSNxu8QOFVRKutxv2ZcojHT8fZE9MkUZYB4m%2B094bp%2BMAQ9DgcoZyMaGbDOzF4p7BDMSzuWioDuw4oXoX%2FLWeo%2BoYjzirNlEibjHQ; optimizelyEndUserId=oeu1473684041957r0.6113794356256115; mbdc=AE91C60A.4C0E.5526.01C6.42BA96F7283E; cnx_sa=1; optimizelySegments=%7B%22656580285%22%3A%22none%22%2C%22656580286%22%3A%22gc%22%2C%22658230792%22%3A%22false%22%2C%22659760039%22%3A%22search%22%7D; optimizelyBuckets=%7B%7D; LOCALEID=en%5FUS; visits=2; _ga=GA1.2.2090161550.1473684072; mbcc=22975E8D-053D-58C3-044E-A0B74BA03F60; _ceg.s=ode8ot; _ceg.u=ode8ot; cnx_sid=720232357240974480; cnx_start=1473687679796; cnx_rid=1473687680320407147; cnx_views=1; cnx_pg=1473687679796; rCookie=q5lz390jw7izs6vpni1u81akqskav2; lastVisitURL=http://www.footlocker.com/";
+
+           CookieCollection initCookie = CovertToCookies(rawCookies);
 
             initialRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
+            initialRequest.CookieContainer = new CookieContainer();
+            initialRequest.CookieContainer.Add(new Uri(base_url),initCookie);
             initialRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
             initialRequest.Headers.Add("DNT", "1");
             initialRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
