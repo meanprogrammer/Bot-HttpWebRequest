@@ -19,7 +19,7 @@ namespace HttpWebRequestFootlocker
 
             HttpWebRequest initialRequest = (HttpWebRequest)WebRequest.Create(base_url);
 
-            string rawCookies = "TID=5555%2D29121607402129070918580%2D0; TRACK_USER_P=29031291216074029070967883; USER_PROFILE=enw6maPKkWi63kKVcW5m4tPeCZotA3X22AN6W962AW4oQrIC6Vy187h3hXGez9upTenaqyHuQzCHCWYFlV0aJoSdXXK%2BSNxu8QOFVRKutxv2ZcojHT8fZE9MkUZYB4m%2B094bp%2BMAQ9DgcoZyMaGbDOzF4p7BDMSzuWioDuw4oXoX%2FLWeo%2BoYjzirNlEibjHQ; optimizelyEndUserId=oeu1473684041957r0.6113794356256115; mbdc=AE91C60A.4C0E.5526.01C6.42BA96F7283E; cnx_sa=1; optimizelySegments=%7B%22656580285%22%3A%22none%22%2C%22656580286%22%3A%22gc%22%2C%22658230792%22%3A%22false%22%2C%22659760039%22%3A%22search%22%7D; optimizelyBuckets=%7B%7D; LOCALEID=en%5FUS; visits=2; _ga=GA1.2.2090161550.1473684072; mbcc=22975E8D-053D-58C3-044E-A0B74BA03F60; _ceg.s=ode8ot; _ceg.u=ode8ot; cnx_sid=720232357240974480; cnx_start=1473687679796; cnx_rid=1473687680320407147; cnx_views=1; cnx_pg=1473687679796; rCookie=q5lz390jw7izs6vpni1u81akqskav2; lastVisitURL=http://www.footlocker.com/";
+            string rawCookies = "TID=5555%2D29121607402129070918580%2D0; TRACK_USER_P=29031291216074029070967883; USER_PROFILE=enw6maPKkWi63kKVcW5m4tPeCZotA3X22AN6W962AW4oQrIC6Vy187h3hXGez9upTenaqyHuQzCHCWYFlV0aJoSdXXK%2BSNxu8QOFVRKutxv2ZcojHT8fZE9MkUZYB4m%2B094bp%2BMAQ9DgcoZyMaGbDOzF4p7BDMSzuWioDuw4oXoX%2FLWeo%2BoYjzirNlEibjHQ; optimizelyEndUserId=oeu1473684041957r0.6113794356256115; mbdc=AE91C60A.4C0E.5526.01C6.42BA96F7283E; cnx_sa=1; SSLC=web%2D15; DOTOMI_SESSION=1; CHOSEN_BANNER=1; CHOSEN_BANNER_ID=; BROWSER_SESSION=enw6maPKkWiWMYtmf8cr%2F1pXol9%2Fok9yV5uCb1sQOupqQVitDbTrpaI23u964b9pdMi5iT11Nd4RCH4SDQRxey5JN45YavNz89ZjvJHPuf0RCH4SDQRxe11Zet22S9EK%2BJH1b6exHvvUzfJnED0nn79HfpKRzULkSOXkPQvZJpRWQGRXEBn2%2FjlCOEnQ3nDcrAdpEXdo9VLZazaMo6zcz5letSoCzj2McsKo%2Bc2hSAr7oDdDt4XSjNEadH3rLvvZaLNkAXpLlyYHdBzbU55woMNMdGDWtaV4L1LDEgYBifmfKFLJe0o7zsIm3KiQklboHc%2FelScjhZ5oJl%2B0a1VVk8FrKh9Nn4B0Bbqi0Rubso0p6zWM5H5N3hbyRtWyZKGStb5g1vr3WsbTsPcaunE0%2B%2FatcYKuCniSZZtqxwfyj7FKXeknacNlOTbrTTRT2EghhxV9I88b7aV3HZTMGJ5UgzICjVbKdOO5tznrBmBfPxD%2B6jK8W7jx0g%3D%3D; SSLB=0; mdr_browser=desktop; cmTPSet=Y; QSI_S_ZN_3PMUUOL1V08evMF=v:100:0; cnx_sid=120231151042057186; cnx_start=1474770386066; cnx_rid=1474770386310403756; QSI_HistorySession=http%3A%2F%2Fwww.footlocker.com%2F~1474770428888%7Chttp%3A%2F%2Fwww.footlocker.com%2FShoes%2F_-_%2FN-rjZ1z141xe~1474770439880%7Chttp%3A%2F%2Fwww.footlocker.com%2F_-_%2Fkeyword-jordan%2Bretro~1474770540870%7Chttp%3A%2F%2Fwww.footlocker.com%2FMens%2F_-_%2FN-24%2Fkeyword-jordan%2Bretro%3Fcm_REF%3DMen%2527s%26Nr%3DAND%2528P%255FRecordType%253AProduct%2529~1474770638298; rCookie=q5lz390jw7izs6vpni1u81akqskav2; cnx_exit=true; lastVisitURL=http://www.footlocker.com/Mens/_-_/N-24/keyword-jordan+retro?cm_REF=Men%27s&Nr=AND%28P%5FRecordType%3AProduct%29; RECENTSKULIST=19176001%3A255653%3AMain; INLINECARTSUMMARY=0%2C0; optimizelySegments=%7B%22656580285%22%3A%22none%22%2C%22656580286%22%3A%22gc%22%2C%22658230792%22%3A%22false%22%2C%22659760039%22%3A%22search%22%7D; optimizelyBuckets=%7B%7D; _ga=GA1.2.2090161550.1473684072; _gat=1; RECENTNAMELIST=Jordan%20AJ%201%20Retro%20High%20Nouveau%20-%20Men's; visits=2; mbcs=6FE1FCF4-587E-5B2F-BB7B-F9183AF1B596; mbcc=22975E8D-053D-58C3-044E-A0B74BA03F60; xyz_cr_100238_et_111==undefined&cr=100238&et=111&ap=undefined; _ceg.s=oe1gl7; _ceg.u=oe1gl7; cnx_views=5; cnx_pg=1474771005551; optimizelyPendingLogEvents=%5B%5D; LOCALEID=en%5FUS";
 
            CookieCollection initCookie = CovertToCookies(rawCookies);
 
@@ -117,7 +117,7 @@ namespace HttpWebRequestFootlocker
 
 
                         request.CookieContainer = new CookieContainer();
-                        request.CookieContainer.Add(new Uri("http://www.footlocker.com"), initialCookies);
+                        request.CookieContainer.Add(new Uri("http://www.footlocker.com"), CovertToCookies(rawCookies));
 
                         string postData = "";
 
@@ -164,7 +164,7 @@ namespace HttpWebRequestFootlocker
             {
                 string[] keyValue = item.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
                 if (keyValue.Length == 2) {
-                    Cookie c = new Cookie(keyValue.First().Trim(), HttpUtility.UrlEncode(keyValue.Last().Trim()));
+                    Cookie c = new Cookie(keyValue.First().Trim(), keyValue.Last().Trim());
                     list.Add(c);
                 }
             }
