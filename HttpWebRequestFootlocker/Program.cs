@@ -43,8 +43,8 @@ namespace HttpWebRequestFootlocker
 
             initialResponse.Dispose();
 
-            string url = "http://www.footlocker.com/product/model:190074/sku:55088001/jordan-retro-1-high-og-mens/black/red/?cm=";
-            //string url = "http://www.footlocker.com/product/model:190074/sku:55088011/jordan-retro-1-high-og-mens/black/white/?cm=";
+
+            string url = "http://www.footlocker.com/product/model:190074/sku:55088011/jordan-retro-1-high-og-mens/black/white/?cm=";
             //string url = "http://www.footlocker.com/product/model:201111/sku:54861001/nike-sb-stefan-janoski-boys-grade-school/black/white/?cm=";
             string size = "7.0";
 
@@ -96,7 +96,7 @@ namespace HttpWebRequestFootlocker
 
                         request = (HttpWebRequest)WebRequest.Create(postUrl);
                         request.Method = "POST";
-                        request.Credentials = CredentialCache.DefaultCredentials;
+                        request.Credentials = CredentialCache.DefaultNetworkCredentials;
                         request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
                         //request.ContentType = "application/x-www-form-urlencoded";
                         //request.Headers.Add("Cookie", setcookie);
